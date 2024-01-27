@@ -1,0 +1,14 @@
+{
+  "name": "SeezItt AR Studio",
+  "short_name": "SeezIttARStudio",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "./images/icon.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    }
+  ]
+}

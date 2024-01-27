@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login and Redirect</title>
+</head>
+
+<body>
+
+    <div id="loginForm">
+        <h2>Login</h2>
+        <form id="signInForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+
+            <button type="button" onclick="handleSignIn()">Login</button>
+        </form>
+        <p id="errorMessage"></p>
+    </div>
+
+    <script>
+
+        const handleSignIn = async () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const API_KEY = "https://dev-api.action-take1.com/api";
+            try {
+                const response = await fetch(`${API_KEY}/auth/sign-in`, {
+                    method: 'POST',
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify({ password, email }),
+                });
+
+                if (response.ok) {
+                    const responseData = await response.json();
+                    console.log(responseData);
+                    document.getElementById('errorMessage').innerText = ''; // Clear any previous error messages
+                    window.location.href = '/AR-Studio/';
+                } else {
+                    const errorResponseData = await response.json();
+                    const errorMessageFromServer = errorResponseData.message;
+                    document.getElementById('errorMessage').innerText = errorMessageFromServer;
+                    console.log(response);
+                }
+            } catch (error) {
+                console.error(error);
+                document.getElementById('errorMessage').innerText = 'Invalid email or password';
+            }
+        };
+    </script>
+
+</body>
+
+</html>
